@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="@string/Add" android:id="@+id/add"
+        app:showAsAction="ifRoom"/> <!-- ifRoom means that if theres no room on the toolbar it will move it to the burger menu -->
+
+    <item android:title="@string/Search" android:id="@+id/search"
+        app:showAsAction="ifRoom"/>
+
+    <item android:title="@string/Update" android:id="@+id/update"
+        app:showAsAction="ifRoom" app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item android:title="@string/Delete" android:id="@+id/delete"
+        app:showAsAction="ifRoom"/>
+</menu>

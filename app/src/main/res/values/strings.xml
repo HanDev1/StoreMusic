@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">StoreMusic</string>
+    <string name="helloworld">hello world</string>
+    <string name="Add">Add</string>
+    <string name="Search">Search</string>
+    <string name="Update">Update</string>
+    <string name="Delete">Delete</string>
+</resources>
