@@ -1,6 +1,7 @@
 package com.example.a2hanj43.storemusic;
 
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
@@ -11,9 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText title, artist, year;
+    TextView textview;
+    MyHelper controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +33,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        title = (EditText)findViewById(R.id.title);
+        artist = (EditText)findViewById(R.id.artist);
+        year = (EditText)findViewById(R.id.year);
+        textview = (TextView)findViewById(R.id.tv1);
+
+        controller = new MyHelper(this);
+
+
+
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-/*
-       FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab1);
 
-        fab.setOnClickListener (new View.OnClickListener() {
+       //FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab1);
 
-            public void onClick(View view) {
-                new AlertDialog.Builder(MainActivity.this).setPositiveButton("OK", null).
-                        setMessage("The FloatingActionButton was clicked!").show();
-            }
-        }
-        )*/;
+        //fab.setOnClickListener (new View.OnClickListener() {
+
+           // public void onClick(View view) {
+            //    new AlertDialog.Builder(MainActivity.this).setPositiveButton("OK", null).
+                       // setMessage("The FloatingActionButton was clicked!").show();
+           // }
+        //}
+        //);
 
     }
 
@@ -70,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
 
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView sv = (SearchView) MenuItemCompat.getActionView(item);
-        sv.setOnQueryTextListener(new SearchHandler());
+        //MenuItem item = menu.findItem(R.id.search);
+       // SearchView sv = (SearchView) MenuItemCompat.getActionView(item);
+        //sv.setOnQueryTextListener(new SearchHandler());
 
 
         return true;
@@ -81,11 +97,18 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item)
     {
+
+        Long yearValue = Long.parseLong(year.getText().toString());
         if(item.getItemId() == R.id.add)
         {
+            try{
+                controller.insertRecord(title.getText().toString(), artist.getText().toString(), yearValue);
+            }catch (SQLiteException e){
+                    Toast.makeText(MainActivity.this, "ALREADY EXISTS", Toast.LENGTH_SHORT).show();
+                }
             // react to the menu item being selected...
-            new AlertDialog.Builder(this).setPositiveButton("OK",null).setMessage("adding...").show();
-            return true;
+           // new AlertDialog.Builder(this).setPositiveButton("OK",null).setMessage("adding...").show();
+            //return true;
 
         }
         else if(item.getItemId() == R.id.search)
